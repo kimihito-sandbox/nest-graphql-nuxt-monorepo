@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+    api:
+      build: .
+      command: "yarn workspace api start:dev"
+      volumes:
+        - ./apps/api:/apps/api
+      ports: 
+        - 3001:3000
+    web:
+      build: .
+      command: "yarn workspace web dev"
+      environment:
+        - NUXT_HOST=0.0.0.0
+      volumes:
+        - ./apps/web:/apps/web
+      ports: 
+        - 3000:3000
+      depends_on:
+        - api
+
+
